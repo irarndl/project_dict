@@ -1,0 +1,16 @@
+{% extends 'dict/base.html' %}
+{% block content %}
+{% if info_list %}
+    <ul>
+    {% for word,lang in info_list %}
+       <p> <li>{{lang.name}}: <b>{{ word.translation }}</b></li></p>
+        <span id="CountedClicks">{{ word.likes.count }} points</span><br>
+        <a href="/word/{{ word.word }}/like/{{ word.id }}">like</a>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ <i onclick="/word/{{ word.word }}/like/{{ word.id }}" class="fa fa-thumbs-up"></i>       
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No words are available.</p>
+{% endif %}
+{% endblock %}

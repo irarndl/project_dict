@@ -1,0 +1,12 @@
+{% extends 'dict/base.html' %}
+{% block content %}
+{% if info_list %}
+    <ul>
+    {% for word, lang in info_list %}
+        <li><a href="/word/{{word.word_id}}">{{word.translation}} ({{lang.name}})</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No words are available.</p>
+{% endif %}
+{% endblock %}
