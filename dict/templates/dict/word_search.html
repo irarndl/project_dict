@@ -1,15 +1,16 @@
 {% extends 'dict/base.html' %}
 {% block content %}
+<p>Please submit a term you are searching for</p>
 <form action="search/list">
- <body>
-  <p>
-Please submit a term you are searching for</p></font>
-   <body bgcolor="#CED8F6">
- </body>
-    <input type="text" name="query" value="">
-    <input type="submit" value="Find">
-    <title>Welcome to our tech dict! </title>
+    <input type="text" class = "input"  name="query"  value="">
+    <input type="submit" class="btn btn-info" value="FIND">
 </form>
+        {% if request.user.is_authenticated  %}
+        <form action="/add_word">
+        <input type="submit" class="btn btn-info" value="ADD WORD">
+        </form>
+        {% endif %}
+
     <ul>
     {% for terms in last_added_terms_list %}
         <li><a href="/word/{{ terms.word_id }}">{{ terms.translation }}({{terms.pub_date }})</a></li>

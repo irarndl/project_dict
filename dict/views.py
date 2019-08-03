@@ -12,7 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 def login_process_view(request):
     username = request.POST['username']
     password = request.POST['password']
-    if username=="":
+    if username == "":
         return HttpResponseRedirect("/login")
     user = authenticate(request, username=username, password=password)
     if user is not None:
@@ -43,7 +43,7 @@ def search_form(request,lang_id):
 
 
 def search(request):
-    last_added_terms_list = Translation.objects.order_by("pub_date")
+    last_added_terms_list = Translation.objects.filter(language_id=1)
     template = loader.get_template('dict/word_search.html')
     context = {'last_added_terms_list': last_added_terms_list}
     return HttpResponse(template.render(context, request))
@@ -57,7 +57,6 @@ def view_the_whole_translation(request, word_id):
     context = {'info_list': info_list}
     return HttpResponse(template.render(context, request))
 
-
 def searchlist(request):
     query = request.GET.get("query")
     word_list = Translation.objects.filter(translation__startswith=query)
@@ -67,15 +66,6 @@ def searchlist(request):
     context = {'info_list': info_list}
     template = loader.get_template('dict/word_found_list.html')
     return HttpResponse(template.render(context, request))
-
-#def search_for_term_form(request, word_id):
-#    search_term = input ("")
-#    word_list = Translation.objects.filter(word_id=word_id)
-#    if search_term in word_list:
-#    template = loader.get_template('dict/word_search.html')
-#    context = {'search_term': word_list}
-#    return HttpResponse(template.render(context, request))
-
 
 def view_word(request, word_id):
     word_list = Translation.objects.filter(word_id=word_id)
@@ -93,3 +83,16 @@ def like_word(request, word_id, translation_id):
         translation_to_like.likes.create(user=request.user)
         
     return redirect('/word/'+str(word_id))
+
+def edit_translation(request,word_id, translation_id):
+    if request.user.is_authenticated:
+        translation_to_edit = Translation.objects.get(id=translation_id)
+        new_value = request.GET["new_value"]
+        translation_to_edit.translation = new_value
+        translation_to_edit.save()
+    return redirect('/word/'+str(word_id))
+
+def add_word(request):
+    word = Word.create()
+    return redirect('/word/'+str(word.id))
+

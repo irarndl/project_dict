@@ -13,5 +13,7 @@ urlpatterns = [
     path('language/<int:lang_id>/search', views.search_form, name='search_form'),
     path('word/<int:word_id>/', views.view_word, name='view_word'),
     path('word/<int:word_id>/like/<int:translation_id>', views.like_word, name='like_word'),
+    path('word/<int:word_id>/edit/<int:translation_id>', views.edit_translation, name='edit_translation'),
+    path('add_word', views.add_word, name='add_word'),
     path('view_translation/<int:word_id>/', views.view_the_whole_translation, name='view_the_whole_translation'),
 ]

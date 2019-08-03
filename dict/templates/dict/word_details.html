@@ -3,14 +3,28 @@
 {% if info_list %}
     <ul>
     {% for word,lang in info_list %}
-       <p> <li>{{lang.name}}: <b>{{ word.translation }}</b></li></p>
+       <p> <li>{{lang.name}}: 
+       {% if request.user.is_authenticated  %}
+           <form action="/word/{{ word.word.id }}/edit/{{ word.id }}">
+           <input type="text" name="new_value" value="{{ word.translation }}">
+           <input type="submit" class="btn btn-info"  value="APPLY">
+           </form>
+       {% else %}
+           <b>{{ word.translation }}</b>
+        {% endif %}
+       </li></p>
         <span id="CountedClicks">{{ word.likes.count }} points</span><br>
-        <a href="/word/{{ word.word }}/like/{{ word.id }}">like</a>
+        {% if request.user.is_authenticated  %}
+        <a href="/word/{{ word.word.id }}/like/{{ word.id }}">like</a>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- <i onclick="/word/{{ word.word }}/like/{{ word.id }}" class="fa fa-thumbs-up"></i>       
+ <i onclick="/word/{{ word.word.id }}/like/{{ word.id }}" class="fa fa-thumbs-up"></i>       
+         {% endif %}
     {% endfor %}
     </ul>
 {% else %}
     <p>No words are available.</p>
 {% endif %}
+ <form action="/">
+        <input type="submit" class="btn btn-info" value="BACK">
+        </form>
 {% endblock %}

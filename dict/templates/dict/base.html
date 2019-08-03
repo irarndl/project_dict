@@ -5,30 +5,36 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+        <link rel="stylesheet" href="{% static 'css/title_css.css' %}">
+        <link rel="stylesheet" href="{% static 'css/text_css.css' %}">
+        <link rel="stylesheet" href="{% static 'css/input_type_css.css' %}">
+         <link rel="stylesheet" href="{% static 'css/username_css.css' %}">
     </head>
     <body>
+    <div class="four"><h1>TECH DICT</h1></div>
        <div class="page-header">
-        <h1><a href="/">Tech Dict</a></h1>
+       <center>
         {% if request.user.is_authenticated  %}
-        <form action="logout" method="post">
-        Registered user
-        <input type="submit" value="logout">
+        <form action="/logout" method="post">
+       <label class="user">Registered user</label>
+        <input type="submit" class="btn btn-info" value="LOG OUT">
         <title>Login to our dict </title>
         </form>
         {% else %}
         <form action="/login" method="post">
-        Login
-        <input type="text" name="username" value="">
-        <input type="password" name="password" value="">
-        <input type="submit" value="login">
+        <label class="user"> Username</label>
+        <input type="text" name="username" class = "input" value="">
+        <label class="user">Password</label>
+        <input type="password" name="password" class = "input" value="">
+        <input type="submit" class="btn btn-info" value="LOGIN">
         <title>Login to our dict </title>
         </form>
         {% endif %}
+        </center>
     </div>
     <div class="content container">
         <div class="row">
-            <div class="col-md-8">
+            <div class="par">
             {% block content %}
             {% endblock %}
             </div>
