@@ -79,7 +79,7 @@ def view_word(request, word_id):
 
 def like_word(request, word_id, translation_id):
     if request.user.is_authenticated:
-        translation_to_like=Translation.objects.get(id=translation_id)
+        translation_to_like = Translation.objects.get(id=translation_id)
         translation_to_like.likes.create(user=request.user)
         
     return redirect('/word/'+str(word_id))
